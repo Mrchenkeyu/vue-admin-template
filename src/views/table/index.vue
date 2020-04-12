@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: false
     }
   },
   created() {
@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     fetchData() {
-      this.listLoading = true
+      // this.listLoading = true
       getList().then(response => {
         this.list = response.data.items
         this.listLoading = false
