@@ -1,6 +1,7 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import da from 'element-ui/src/locale/lang/da'
 
 const state = {
   token: getToken(),
@@ -28,9 +29,11 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         // login(userInfo).then(response => {
         const { data } = response
-        console.log('actions login :', data)
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        const userDetail = JSON.parse(data)
+        console.log('actions login1 :', userDetail)
+        console.log('actions login2 :', userDetail.username)
+        commit('SET_TOKEN', userDetail.username)
+        setToken(userDetail.username)
         resolve()
       }).catch(error => {
         console.log('actions login error :', error)
@@ -48,11 +51,14 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
+        // console.log('data:', data)
+        // console.log('response:', response)
+        // const { name, avatar } = data
 
-        const { name, avatar } = data
+        // const userDetail = JSON.parse(data)
 
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_NAME', data.username)
+        // commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {
         reject(error)
