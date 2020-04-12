@@ -29,11 +29,11 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         // login(userInfo).then(response => {
         const { data } = response
-        const userDetail = JSON.parse(data)
-        console.log('actions login1 :', userDetail)
-        console.log('actions login2 :', userDetail.username)
-        commit('SET_TOKEN', userDetail.username)
-        setToken(userDetail.username)
+        console.log('actions token :', data)
+        // const userDetail = JSON.parse(data)
+        // console.log('actions login1 :', userDetail)
+        commit('SET_TOKEN', data)
+        setToken(data)
         resolve()
       }).catch(error => {
         console.log('actions login error :', error)
